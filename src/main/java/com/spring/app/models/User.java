@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class Persona {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name="name")
-    private String nombre;
+    private String name;
 
     @Column(name="phone")
-    private String telefono;
+    private String phone;
 }

@@ -1,11 +1,12 @@
 package com.spring.app.controllers;
 
-import com.spring.app.models.Persona;
+import com.spring.app.models.User;
 import com.spring.app.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class Controller {
@@ -19,30 +20,35 @@ public class Controller {
         return "CONECTADO";
     }
 
-    @GetMapping("usuarios")
-    public List<Persona> getPersonas(){
+    @GetMapping("users")
+    public List<User> getAllUsers(){
         return repositorio.findAll();
     }
 
-    @PostMapping("usuarios")
-    public String post(@RequestBody Persona persona){
-        repositorio.save(persona);
-        return "Usuario Creado";
+    @GetMapping("users/{id}")
+    public Optional<User> getUserByID(@PathVariable Long id){
+        return repositorio.findById(id);
     }
 
-    @PutMapping("usuarios/{id}")
-    public String update(@PathVariable Long id, @RequestBody Persona persona){
-        Persona updatePersona = repositorio.findById(id).get();
-        updatePersona.setNombre(persona.getNombre());
-        updatePersona.setTelefono(persona.getTelefono());
+    @PostMapping("users")
+    public String createUser(@RequestBody User user){
+        repositorio.save(user);
+        return "Usuario creado";
+    }
+
+    @PutMapping("users/{id}")
+    public String updateUser(@PathVariable Long id, @RequestBody User user){
+        User updatePersona = repositorio.findById(id).get();
+        updatePersona.setName(user.getName());
+        updatePersona.setPhone(user.getPhone());
         repositorio.save(updatePersona);
-        return "Usuario Editado";
+        return "Usuario editado";
     }
 
-    @DeleteMapping("usuarios/{id}")
-    public String delete(@PathVariable Long id){
-        Persona deletePersona = repositorio.findById(id).get();
-        repositorio.delete(deletePersona);
-        return "Usuario Eliminado";
+    @DeleteMapping("users/{id}")
+    public String deleteUser(@PathVariable Long id){
+        User deleteUser = repositorio.findById(id).get();
+        repositorio.delete(deleteUser);
+        return "Usuario eliminado";
     }
 }
