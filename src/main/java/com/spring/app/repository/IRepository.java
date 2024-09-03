@@ -1,7 +1,7 @@
 package com.spring.app.repository;
 
-import com.spring.app.models.User;
+import com.spring.app.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface Repository extends JpaRepository<User, Long> {
+public interface IRepository extends JpaRepository<User, Long> {
 }
